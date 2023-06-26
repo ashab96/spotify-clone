@@ -1,12 +1,14 @@
 "use client";
 
 import SongItem from "@/components/SongItem";
+import useOnPlay from "@/Hooks/useOnPlay";
 import { Song } from "@/types";
 
 interface PageContentProps {
   songs: Song[];
 }
 const PageContent: React.FC<PageContentProps> = ({ songs }) => {
+  const onPlay = useOnPlay(songs);
   if (songs.length === 0) {
     return <div className="mt-4 text-neutral-400">No Songs available</div>;
   }
@@ -24,7 +26,11 @@ const PageContent: React.FC<PageContentProps> = ({ songs }) => {
         mt-4"
     >
       {songs.map((item) => (
-        <SongItem onClick={() => {}} key={item.id} data={item} />
+        <SongItem
+          onClick={(id: string) => onPlay(id)}
+          key={item.id}
+          data={item}
+        />
       ))}
     </div>
   );
