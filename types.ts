@@ -60,3 +60,7 @@ export interface Song {
   song_path: string;
   image_path: string;
 }
+
+export interface ProductWithPrice extends Product {
+  prices?: Price[];
+}
