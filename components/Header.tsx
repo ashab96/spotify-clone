@@ -12,6 +12,7 @@ import { useUser } from "@/Hooks/useUser";
 import { FaUserAlt } from "react-icons/fa";
 import toast from "react-hot-toast";
 import usePlayer from "@/Hooks/usePlayer";
+import { ViewType } from "@supabase/auth-ui-shared";
 
 interface HeaderProps {
   children: React.ReactNode;
@@ -35,6 +36,12 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
       toast.error(error.message);
     } else {
       toast.success("Logged out!");
+    }
+  };
+  const handleButtonClick = (buttonText: ViewType) => {
+    authModal.onOpen();
+    if (buttonText == "sign_up") {
+      authModal.onSignup();
     }
   };
 
@@ -130,7 +137,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
             <>
               <div>
                 <Button
-                  onClick={authModal.onOpen}
+                  onClick={() => handleButtonClick("sign_up")}
                   className=" bg-transparent 
                     text-neutral-300 
                     font-medium"
@@ -140,7 +147,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
               </div>
               <div>
                 <Button
-                  onClick={authModal.onOpen}
+                  onClick={() => handleButtonClick("sign_in")}
                   className="bg-white px-6 py-2"
                 >
                   Log in
