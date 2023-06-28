@@ -12,7 +12,7 @@ import Modal from "./Modal";
 const AuthModal = () => {
   const { session } = useSessionContext();
   const router = useRouter();
-  const { onClose, isOpen } = useAuthModal();
+  const { onClose, isOpen, isSignIn } = useAuthModal();
 
   const supabaseClient = useSupabaseClient();
 
@@ -27,6 +27,7 @@ const AuthModal = () => {
       onClose();
     }
   }, [session, router, onClose]);
+  console.log("handlebuttonclick isSignIn", isSignIn);
   return (
     <Modal
       title="Welcome Back"
@@ -38,6 +39,7 @@ const AuthModal = () => {
         supabaseClient={supabaseClient}
         theme="dark"
         providers={["github"]}
+        view={isSignIn}
         magicLink
         appearance={{
           theme: ThemeSupa,
